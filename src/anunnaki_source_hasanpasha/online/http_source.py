@@ -2,8 +2,8 @@ from requests import Session, Request, Response
 from abc import abstractmethod
 from typing import Union
 
-from source.source import Source
-from source.models import MediasPage, Media, Kind, Season, Episode, Video, Subtitle
+from ..source import Source
+from ..source import MediasPage, Media, Season, Episode, Video, Subtitle
 
 
 class HttpSource(Source):
