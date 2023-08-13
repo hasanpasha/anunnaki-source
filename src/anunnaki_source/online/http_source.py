@@ -15,6 +15,21 @@ class HttpSource(Source):
     headers: dict[str, str]
     session: Session
 
+    def fetch_search_media(self, query: str, page: int, filters: dict = None) -> MediasPage:
+        resp = self.session.send(
+            self.search_media_request(page=page).prepare())
+        if not resp.ok:
+            return MediasPage(medias=[], has_next=False)
+        return self.search_media_parse(response=resp)
+
+    @abstractmethod
+    def search_media_request(self, query: str, page: int, filters: dict = None) -> Request:
+        pass
+
+    @abstractmethod
+    def search_media_parse(self, response: Response) -> MediasPage:
+        pass
+
     def fetch_popular_media(self, page: int) -> MediasPage:
         resp = self.session.send(
             self.popular_media_request(page=page).prepare())
