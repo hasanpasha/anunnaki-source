@@ -17,7 +17,7 @@ class HttpSource(Source):
 
     def fetch_search_media(self, query: str, page: int, filters: dict = None) -> MediasPage:
         resp = self.session.send(
-            self.search_media_request(page=page).prepare())
+            self.search_media_request(query=query, page=page, filters=filter).prepare())
         if not resp.ok:
             return MediasPage(medias=[], has_next=False)
         return self.search_media_parse(response=resp)
