@@ -1,4 +1,4 @@
-from .models import Media, Season, Episode, Video, Subtitle
+from anunnaki_source.models import Media, Season, Episode, Video, Subtitle
 
 from abc import ABC, abstractmethod
 from typing import Union

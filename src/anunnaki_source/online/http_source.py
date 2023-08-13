@@ -2,8 +2,8 @@ from requests import Session, Request, Response
 from abc import abstractmethod
 from typing import Union
 
-from ..source import Source
-from ..source import MediasPage, Media, Season, Episode, Video, Subtitle
+from anunnaki_source.source import Source
+from anunnaki_source.models import MediasPage, Media, Season, Episode, Video, Subtitle
 
 
 class HttpSource(Source):

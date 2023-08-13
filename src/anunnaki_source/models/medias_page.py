@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from .media import Media
+from anunnaki_source.models import Media
 
 
 @dataclass
