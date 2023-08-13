@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from anunnaki_source.models import Kind
+from anunnaki_source.models.kind import Kind
 
 
 @dataclass

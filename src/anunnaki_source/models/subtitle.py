@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from anunnaki_source.models import FileExtension
+from anunnaki_source.models.file_extensions import FileExtension
 
 
 @dataclass

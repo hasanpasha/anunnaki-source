@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from anunnaki_source.models import Episode
+from anunnaki_source.models.episode import Episode
 
 
 @dataclass
