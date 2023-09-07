@@ -7,10 +7,6 @@ from typing import Union
 
 
 class Source(ABC):
-    id: str
-    name: str
-    lang: str
-
     @abstractmethod
     def get_detail(self, media: Media) -> Media:
         pass
