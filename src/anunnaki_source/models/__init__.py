@@ -6,3 +6,4 @@ from anunnaki_source.models.file_extensions import FileExtension
 from anunnaki_source.models.episode import Episode
 from anunnaki_source.models.season import Season
 from anunnaki_source.models.medias_page import MediasPage
+from anunnaki_source.models.filter import Filter

@@ -3,42 +3,40 @@ from abc import abstractmethod
 from typing import Union
 
 from anunnaki_source.source import Source
-from anunnaki_source.models import MediasPage, Media, Season, Episode, Video, Subtitle
+from anunnaki_source.models import (
+    Filter, MediasPage, Media, Season, Episode, Video, Subtitle
+)
 
 
 class HttpSource(Source):
-    name: str
-    id: str
-    lang: str
-
     base_url: str
     headers: dict[str, str]
     session: Session
 
-    def fetch_search_media(self, query: str, page: int, filters: dict = None) -> MediasPage:
+    def fetch_search_media(self, query: str, page: int, filters: list[Filter] = None) -> MediasPage:
         resp = self.session.send(
-            self.search_media_request(query=query, page=page, filters=filter).prepare())
+            self.search_media_request(query=query, page=page, filters=filters).prepare())
         if not resp.ok:
             return MediasPage(medias=[], has_next=False)
         return self.search_media_parse(response=resp)
 
     @abstractmethod
-    def search_media_request(self, query: str, page: int, filters: dict = None) -> Request:
+    def search_media_request(self, query: str, page: int, filters: list[Filter] = None) -> Request:
         pass
 
     @abstractmethod
     def search_media_parse(self, response: Response) -> MediasPage:
         pass
 
-    def fetch_popular_media(self, page: int) -> MediasPage:
+    def fetch_popular_media(self, page: int, filters: list[Filter] = None) -> MediasPage:
         resp = self.session.send(
-            self.popular_media_request(page=page).prepare())
+            self.popular_media_request(page=page, filters=filters).prepare())
         if not resp.ok:
             return MediasPage(medias=[], has_next=False)
         return self.popular_media_parse(response=resp)
 
     @abstractmethod
-    def popular_media_request(self, page: int) -> Request:
+    def popular_media_request(self, page: int, filters: list[Filter] = None) -> Request:
         pass
 
     @abstractmethod
@@ -64,9 +62,9 @@ class HttpSource(Source):
     def media_detail_parse(self, response: Response) -> Media:
         pass
 
-    def get_season_list(self, media: Media) -> Union[list[Season], Episode]:
+    def get_season_list(self, media: Media) -> list[Season]:
         if media.is_movie:
-            return Episode(episode='0', slang=media.slang, has_next=False)
+            return [Season('0', [Episode(episode='0', slang=media.slang, has_next=False)], False)]
 
         return self.fetch_season_list(media=media)
 
