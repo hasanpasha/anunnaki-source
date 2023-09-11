@@ -6,7 +6,7 @@ from anunnaki_source.models.kind import Kind
 class Media:
     title: str = None
     kind: Kind = None
-    slang: str = None
+    slug: str = None
     url: str = None
     thumbnail_url: str = None
     description: str = None
