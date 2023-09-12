@@ -1,2 +1,3 @@
 from anunnaki_source.source import Source
 from anunnaki_source.filter_source import FilterSource
+from anunnaki_source.catalogue_source import CatalogueSource
