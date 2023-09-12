@@ -8,6 +8,7 @@ class Media:
     kind: Kind = None
     slug: str = None
     url: str = None
+    year: int = None
     thumbnail_url: str = None
     description: str = None
     tags: list[str] = None
