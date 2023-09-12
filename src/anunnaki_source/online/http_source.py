@@ -1,14 +1,12 @@
 from requests import Session, Request, Response
 from abc import abstractmethod
-from typing import Union
-
-from anunnaki_source.source import Source
+from anunnaki_source import CatalogueSource
 from anunnaki_source.models import (
     Filter, MediasPage, Media, Season, Episode, Video, Subtitle
 )
 
 
-class HttpSource(Source):
+class HttpSource(CatalogueSource):
     base_url: str
     headers: dict[str, str]
     session: Session
@@ -41,6 +39,21 @@ class HttpSource(Source):
 
     @abstractmethod
     def popular_media_parse(self, response: Response) -> MediasPage:
+        pass
+
+    def fetch_latest_media(self, page: int, filters: list[Filter] = None) -> MediasPage:
+        resp = self.session.send(
+            self.latest_media_request(page=page, filters=filters).prepare())
+        if not resp.ok:
+            return MediasPage(medias=[], has_next=False)
+        return self.latest_media_parse(response=resp)
+
+    @abstractmethod
+    def latest_media_request(self, page: int, filters: list[Filter] = None) -> Request:
+        pass
+
+    @abstractmethod
+    def latest_media_parse(self, response: Response) -> MediasPage:
         pass
 
     def get_detail(self, media: Media) -> Media:
