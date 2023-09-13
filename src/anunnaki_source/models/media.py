@@ -16,3 +16,9 @@ class Media:
     @property
     def is_movie(self) -> bool:
         return self.kind == Kind.MOVIES
+
+    def __add__(self, other) -> 'Media':
+        new = Media()
+        for key, this_value, other_value in zip(self.__dict__.keys(), self.__dict__.values(), other.__dict__.values()):
+            setattr(new, key, this_value if this_value else other_value)
+        return new
