@@ -77,7 +77,7 @@ class HttpSource(CatalogueSource):
 
     def get_season_list(self, media: Media) -> list[Season]:
         if media.is_movie:
-            return [Season('0', [Episode(episode='0', slang=media.slang, has_next=False)], False)]
+            return [Season('0', [Episode(episode='0', slug=media.slug, has_next=False)], False)]
 
         return self.fetch_season_list(media=media)
 
