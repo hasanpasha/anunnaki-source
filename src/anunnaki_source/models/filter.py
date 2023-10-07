@@ -1,7 +1,10 @@
-from abc import ABC
-from typing import Any
+from pydantic import BaseModel, RootModel
+from typing import Any, List
 
 
-class Filter(ABC):
+class Filter(BaseModel):
     name: str
     state: Any
+
+class FilterList(RootModel):
+    root = List[Filter]

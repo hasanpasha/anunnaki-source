@@ -1,9 +1,7 @@
-from dataclasses import dataclass
 from typing import List
 from anunnaki_source.models.media import Media
+from pydantic import BaseModel
 
-
-@dataclass
-class MediasPage:
+class MediasPage(BaseModel):
     medias: List[Media]
     has_next: bool

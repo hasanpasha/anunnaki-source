@@ -1,9 +1,11 @@
-from dataclasses import dataclass
+from pydantic import BaseModel, RootModel
+from typing import List
 
-
-@dataclass
-class Episode:
+class Episode(BaseModel):
     episode: str
     slug: str
     has_next: bool
     is_special: bool = False
+
+class EpisodeList(RootModel):
+    root: List[Episode]

@@ -1,9 +1,8 @@
-from dataclasses import dataclass
 from anunnaki_source.models.kind import Kind
 from typing import List
+from pydantic import BaseModel
 
-@dataclass
-class Media:
+class Media(BaseModel):
     title: str = None
     kind: Kind = None
     slug: str = None
