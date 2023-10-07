@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "anunnaki-source"
-version = "0.1.1"
+version = "0.1.2"
 description = ""
 authors = ["hasna pasha <38372270+hasanpasha@users.noreply.github.com>"]
 readme = "README.md"
@@ -9,6 +9,7 @@ packages = [{include = "anunnaki_source", from = "src"}]
 [tool.poetry.dependencies]
 python = ">=3.7,<3.12"
 aiohttp = "^3.8.5"
+pydantic = "^2.4.2"
 
 
 [tool.poetry.group.dev.dependencies]

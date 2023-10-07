@@ -1,9 +1,10 @@
 from anunnaki_source.models import (
-    Media, Season, Episode, Video, Subtitle, Filter
+    Media, Season, SeasonList, Episode, EpisodeList,
+    Video, VideoList, Subtitle, SubtitleList, Filter
 )
 
 from abc import ABC, abstractmethod
-from typing import Union
+from typing import Union, List
 
 
 class Source(ABC):
@@ -17,15 +18,15 @@ class Source(ABC):
         pass
 
     @abstractmethod
-    async def get_season_list(self, media: Media) -> list[Season]:
+    async def get_season_list(self, media: Media) -> SeasonList:
         pass
 
     @abstractmethod
-    async def get_video_list(self, episode: Episode) -> list[Video]:
+    async def get_video_list(self, episode: Episode) -> VideoList:
         pass
 
     @abstractmethod
-    async def get_subtitle_list(self, episode: Episode) -> list[Subtitle]:
+    async def get_subtitle_list(self, episode: Episode) -> SubtitleList:
         pass
 
     def __str__(self) -> str:

@@ -1,6 +1,6 @@
-from dataclasses import dataclass
 from enum import Enum
-
+from typing import List
+from pydantic import BaseModel, RootModel
 
 class Resolution(Enum):
     P240 = "240p"
@@ -13,7 +13,10 @@ class Resolution(Enum):
     P4320 = "4320p"
 
 
-@dataclass
-class Video:
+class Video(BaseModel):
     url: str
     resolution: Resolution
+
+class VideoList(RootModel):
+    root: List[Video]
+
