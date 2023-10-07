@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from anunnaki_source.models.kind import Kind
-
+from typing import List
 
 @dataclass
 class Media:
@@ -11,7 +11,7 @@ class Media:
     year: int = None
     thumbnail_url: str = None
     description: str = None
-    tags: list[str] = None
+    tags: List[str] = None
 
     @property
     def is_movie(self) -> bool:
