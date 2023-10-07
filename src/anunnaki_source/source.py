@@ -3,7 +3,7 @@ from anunnaki_source.models import (
 )
 
 from abc import ABC, abstractmethod
-from typing import Union
+from typing import Union, List
 
 
 class Source(ABC):
@@ -17,15 +17,15 @@ class Source(ABC):
         pass
 
     @abstractmethod
-    async def get_season_list(self, media: Media) -> list[Season]:
+    async def get_season_list(self, media: Media) -> List[Season]:
         pass
 
     @abstractmethod
-    async def get_video_list(self, episode: Episode) -> list[Video]:
+    async def get_video_list(self, episode: Episode) -> List[Video]:
         pass
 
     @abstractmethod
-    async def get_subtitle_list(self, episode: Episode) -> list[Subtitle]:
+    async def get_subtitle_list(self, episode: Episode) -> List[Subtitle]:
         pass
 
     def __str__(self) -> str:

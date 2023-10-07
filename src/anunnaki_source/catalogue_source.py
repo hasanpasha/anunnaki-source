@@ -6,9 +6,11 @@ from anunnaki_source.models import (
     Filter, MediasPage, Media, Season, Episode, Video, Subtitle
 )
 
+from typing import Dict, List
+
 class CatalogueSource(Source):
     base_url: str
-    headers: dict[str, str]
+    headers: Dict[str, str]
     session: ClientSession
     support_latest: bool
 
@@ -16,15 +18,15 @@ class CatalogueSource(Source):
         self.session = ClientSession(headers=self.headers)
 
     @abstractmethod
-    async def fetch_search_media(self, query: str, page: int, filters: list[Filter] = None) -> MediasPage:
+    async def fetch_search_media(self, query: str, page: int, filters: List[Filter] = None) -> MediasPage:
         pass
     
     @abstractmethod
-    async def fetch_popular_media(self, page: int, filters: list[Filter] = None) -> MediasPage:
+    async def fetch_popular_media(self, page: int, filters: List[Filter] = None) -> MediasPage:
         pass
 
     @abstractmethod
-    async def fetch_latest_media(self, page: int, filters: list[Filter] = None) -> MediasPage:
+    async def fetch_latest_media(self, page: int, filters: List[Filter] = None) -> MediasPage:
         pass
     
     @abstractmethod
@@ -32,13 +34,13 @@ class CatalogueSource(Source):
         pass
     
     @abstractmethod
-    async def fetch_season_list(self, media: Media) -> list[Season]:
+    async def fetch_season_list(self, media: Media) -> List[Season]:
         pass
     
     @abstractmethod
-    async def fetch_video_list(self, episode: Episode) -> list[Video]:
+    async def fetch_video_list(self, episode: Episode) -> List[Video]:
         pass
     
     @abstractmethod
-    async def fetch_subtitle_list(self, episode: Episode) -> list[Subtitle]:
+    async def fetch_subtitle_list(self, episode: Episode) -> List[Subtitle]:
         pass

@@ -5,14 +5,15 @@ from anunnaki_source.network import Request
 from anunnaki_source.models import (
     Filter, MediasPage, Media, Season, Episode, Video, Subtitle
 )
+from typing import Dict, List
 
 
 class HttpSource(CatalogueSource):
     base_url: str
-    headers: dict[str, str]
+    headers: Dict[str, str]
     session: ClientSession
 
-    async def fetch_search_media(self, query: str, page: int, filters: list[Filter] = None) -> MediasPage:
+    async def fetch_search_media(self, query: str, page: int, filters: List[Filter] = None) -> MediasPage:
         request = await self.search_media_request(query=query, page=page, filters=filters)
         resp = await self.session.request(**vars(request))
         if not resp.ok:
@@ -20,14 +21,14 @@ class HttpSource(CatalogueSource):
         return await self.search_media_parse(response=resp)
 
     @abstractmethod
-    async def search_media_request(self, query: str, page: int, filters: list[Filter] = None) -> Request:
+    async def search_media_request(self, query: str, page: int, filters: List[Filter] = None) -> Request:
         pass
 
     @abstractmethod
     async def search_media_parse(self, response: ClientResponse) -> MediasPage:
         pass
 
-    async def fetch_popular_media(self, page: int, filters: list[Filter] = None) -> MediasPage:
+    async def fetch_popular_media(self, page: int, filters: List[Filter] = None) -> MediasPage:
         request = await self.popular_media_request(page=page, filters=filters)
         resp = await self.session.request(**vars(request))
         if not resp.ok:
@@ -35,14 +36,14 @@ class HttpSource(CatalogueSource):
         return await self.popular_media_parse(response=resp)
 
     @abstractmethod
-    async def popular_media_request(self, page: int, filters: list[Filter] = None) -> Request:
+    async def popular_media_request(self, page: int, filters: List[Filter] = None) -> Request:
         pass
 
     @abstractmethod
     async def popular_media_parse(self, response: ClientResponse) -> MediasPage:
         pass
 
-    async def fetch_latest_media(self, page: int, filters: list[Filter] = None) -> MediasPage:
+    async def fetch_latest_media(self, page: int, filters: List[Filter] = None) -> MediasPage:
         request = await self.latest_media_request(page=page, filters=filters)
         resp = await self.session.request(**vars(request))
         if not resp.ok:
@@ -50,7 +51,7 @@ class HttpSource(CatalogueSource):
         return await self.latest_media_parse(response=resp)
 
     @abstractmethod
-    async def latest_media_request(self, page: int, filters: list[Filter] = None) -> Request:
+    async def latest_media_request(self, page: int, filters: List[Filter] = None) -> Request:
         pass
 
     @abstractmethod
@@ -82,7 +83,7 @@ class HttpSource(CatalogueSource):
 
         return await self.fetch_season_list(media=media)
 
-    async def fetch_season_list(self, media: Media) -> list[Season]:
+    async def fetch_season_list(self, media: Media) -> List[Season]:
         request = await self.season_list_request(media=media)
         resp = await self.session.request(**vars(request))
         if not resp.ok:
@@ -95,13 +96,13 @@ class HttpSource(CatalogueSource):
         pass
 
     @abstractmethod
-    async def season_list_parse(self, response: ClientResponse) -> list[Season]:
+    async def season_list_parse(self, response: ClientResponse) -> List[Season]:
         pass
 
-    async def get_video_list(self, episode: Episode) -> list[Video]:
+    async def get_video_list(self, episode: Episode) -> List[Video]:
         return await self.fetch_video_list(episode=episode)
 
-    async def fetch_video_list(self, episode: Episode) -> list[Video]:
+    async def fetch_video_list(self, episode: Episode) -> List[Video]:
         request = await self.video_list_request(episode=episode)
         resp = await self.session.request(**vars(request))
         if not resp.ok:
@@ -114,13 +115,13 @@ class HttpSource(CatalogueSource):
         pass
 
     @abstractmethod
-    async def video_list_parse(self, response: ClientResponse) -> list[Video]:
+    async def video_list_parse(self, response: ClientResponse) -> List[Video]:
         pass
 
-    async def get_subtitle_list(self, episode: Episode) -> list[Subtitle]:
+    async def get_subtitle_list(self, episode: Episode) -> List[Subtitle]:
         return await self.fetch_subtitle_list(episode=episode)
 
-    async def fetch_subtitle_list(self, episode: Episode) -> list[Subtitle]:
+    async def fetch_subtitle_list(self, episode: Episode) -> List[Subtitle]:
         request = await self.subtitle_list_request(episode=episode)
         resp = self.session.request(**vars(request))
         if not resp.ok:
@@ -132,5 +133,5 @@ class HttpSource(CatalogueSource):
         pass
 
     @abstractmethod
-    async def subtitle_list_parse(self, response: ClientResponse) -> list[Subtitle]:
+    async def subtitle_list_parse(self, response: ClientResponse) -> List[Subtitle]:
         pass
