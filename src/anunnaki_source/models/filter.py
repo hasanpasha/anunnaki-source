@@ -7,4 +7,4 @@ class Filter(BaseModel):
     state: Any
 
 class FilterList(RootModel):
-    root = List[Filter]
+    root: List[Filter]
