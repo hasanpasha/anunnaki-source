@@ -1,16 +1,16 @@
 from anunnaki_source.models.kind import Kind
-from typing import List
+from typing import List, Optional
 from pydantic import BaseModel
 
 class Media(BaseModel):
-    title: str = None
-    kind: Kind = None
-    slug: str = None
-    url: str = None
-    year: int = None
-    thumbnail_url: str = None
-    description: str = None
-    tags: List[str] = None
+    title: Optional[str] = None
+    kind: Optional[Kind] = None
+    slug: Optional[str] = None
+    url: Optional[str] = None
+    year: Optional[int] = None
+    thumbnail_url: Optional[str] = None
+    description: Optional[str] = None
+    tags: Optional[List[str]] = None
 
     @property
     def is_movie(self) -> bool:
