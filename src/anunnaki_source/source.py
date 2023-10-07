@@ -13,19 +13,19 @@ class Source(ABC):
     id: int
 
     @abstractmethod
-    def get_detail(self, media: Media) -> Media:
+    async def get_detail(self, media: Media) -> Media:
         pass
 
     @abstractmethod
-    def get_season_list(self, media: Media) -> list[Season]:
+    async def get_season_list(self, media: Media) -> list[Season]:
         pass
 
     @abstractmethod
-    def get_video_list(self, episode: Episode) -> list[Video]:
+    async def get_video_list(self, episode: Episode) -> list[Video]:
         pass
 
     @abstractmethod
-    def get_subtitle_list(self, episode: Episode) -> list[Subtitle]:
+    async def get_subtitle_list(self, episode: Episode) -> list[Subtitle]:
         pass
 
     def __str__(self) -> str:
